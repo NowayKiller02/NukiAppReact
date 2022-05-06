@@ -1,6 +1,11 @@
-import React from "react";
+import * as React from 'react';
 import logo from './NukiLogo.png';
-import './App.css'
+import Button from '@mui/material/Button';
+import './App.css';
+import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap';
+import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+
 
 function App() {
   return (
@@ -8,9 +13,9 @@ function App() {
       <br></br>
       <img src= {logo} alt="Logo Vives Nukilock" id = "logo" width = "623" height = "194"></img>
       <br></br><br></br><br></br>
-      <button class="button-31" role="button">LOCK</button>
+      <Button variant="contained">Lock</Button>;
       <br></br>
-      <button class="button-31" role="button">UNLOCK</button>
+      <Button variant="contained">Unlock</Button>;
     </div>
   );
 }
