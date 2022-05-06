@@ -25,7 +25,10 @@ function OpenLock() {
   .catch(error => {
     console.error(error)
   });
+
 };
+
+
 function CloseLock() {
   console.log("Closing Lock");
   fetch(Closeurl, {
@@ -41,6 +44,7 @@ function CloseLock() {
   .catch(error => {
     console.error(error)
   });
+  
 };
 
 
