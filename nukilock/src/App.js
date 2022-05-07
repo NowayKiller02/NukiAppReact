@@ -1,66 +1,43 @@
-import * as React from 'react';
-import logo from './NukiLogo.png';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
+import React from "react";
 import './App.css';
-
-const token = "bdeb6ae900e63ad6e8c13afa19fa2ce4b053838c7d1efd91cddc209b95b6acec74740b2c3602946e";
-
-const Openurl = "https://api.nuki.io/smartlock/645574324/action/unlock";
-const Closeurl = "https://api.nuki.io/smartlock/645574324/action/lock";
-
-
-function OpenLock() {
-  console.log("Opening Lock");
-  fetch(Openurl, {
-    method: 'post',
-    headers: new Headers({
-      'Authorization': `Bearer ${token}`,
-      // 'Content-Type': 'application/x-www-form-urlencoded'
-    })
-  }).then(res => {
-    console.log(`statusCode: ${res.status}`)
-    console.log(res)
-  })
-  .catch(error => {
-    console.error(error)
-  });
-
-};
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate, } from "react-router-dom";
+import raw from './gitignore.txt';
+import {
+  Home,
+  Actions,
+  Login,
+} from "./components";
 
 
-function CloseLock() {
-  console.log("Closing Lock");
-  fetch(Closeurl, {
-    method: 'post',
-    headers: new Headers({
-      'Authorization': `Bearer ${token}`,
-      // 'Content-Type': 'application/x-www-form-urlencoded'
-    }),
-  }).then(res => {
-    console.log(`statusCode: ${res.status}`)
-    console.log(res)
-  })
-  .catch(error => {
-    console.error(error)
-  });
-  
-};
+function getUser() {
+  fetch(raw)
+    .then(r => r.text())
+    .then(text => {
+      if (text !== "") {
+        console.log('text decoded:', text);
+        return true;
+      }
+      else {
+        console.log('Sorry je bent niet ingelogd');
+        return false;
+      }
+    });
+}
 
 
-function App() {
+
+export default function App() {
   return (
-    <div className="App">
-      <Paper  square>
-        <img src={logo} alt='logo' />
-      </Paper>
-      <br></br>
-      <br></br>
-      <Button onClick={CloseLock} style={{ height: '75px', width: '45%' }} variant="outlined" color="success">Lock</Button>
-      <Button onClick={OpenLock} style={{ height: '75px', width: '45%' }} variant="outlined" color="error">Unlock</Button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/actions" element={<Actions />} />
+        <Route path='/redirect' element={ getUser ? (<Navigate to='/actions' />) : (<Navigate to='/login' />)} ></Route>
+        <Route  />
+      </Routes>
+    </Router>
   );
 }
-export default App;
 
 
