@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate, } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import raw from './gitignore.txt';
 import {
   Home,
@@ -9,19 +9,23 @@ import {
 } from "./components";
 
 
-function getUser() {
-  fetch(raw)
+async function getUser() {
+
+  var logged = null;
+  await fetch(raw)
     .then(r => r.text())
     .then(text => {
       if (text !== "") {
         console.log('text decoded:', text);
-        return true;
+        logged = true;
       }
       else {
         console.log('Sorry je bent niet ingelogd');
-        return false;
+        logged = false;
       }
     });
+
+  return logged;
 }
 
 
@@ -33,8 +37,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/actions" element={<Actions />} />
-        <Route path='/redirect' element={ getUser ? (<Navigate to='/actions' />) : (<Navigate to='/login' />)} ></Route>
-        <Route  />
+        <Route path='/redirect' element={ getUser() ? (<Navigate to='/actions' />) : (<Navigate to='/login' />)} ></Route>
+        <Route />
       </Routes>
     </Router>
   );
