@@ -18,7 +18,7 @@ export default function Login() {
             </Paper>
             <br></br>
             <br></br>
-            <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => navigate("/redirect")} > Login</Button>
+            <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => navigate("/login")} > Login</Button>
         </div>
     );
 }
