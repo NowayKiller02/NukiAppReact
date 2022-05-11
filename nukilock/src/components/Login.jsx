@@ -5,26 +5,28 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import '../App.css';
 import raw from '../gitignore.txt';
+import { getThemeProps } from "@mui/system";
+
+var value;
 
 
-
-function getKey() {
-  fetch(raw)
-    .then(r => r.text())
-    .then(text => {
-      if (text !== "") {
-        console.log('text decoded:', text);
-        return text;
-      }
-      else {
-        console.log('Sorry je bent niet ingelogd');
-      }
-    });
-}
 
 
 export default function Login() {
-  const value = getKey()
+  function getKey() {
+    fetch(raw)
+      .then(r => r.text())
+      .then(text => {
+        if (text !== "") {
+          console.log('text decoded:', text);
+          const value = text;
+          return value;
+        }
+        else {
+          console.log('Sorry je bent niet ingelogd');
+        }
+      })
+  }
   return (
     <div>
       <div className="App">
@@ -33,13 +35,14 @@ export default function Login() {
         </Paper>
         <br></br>
         <br></br>
-        <TextField value={value} type="number"  variant="standard" />
+        <TextField value={getKey()} type="number" variant="standard" />
         <br></br>
         <br></br>
         <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" > Ok </Button>
       </div>
     </div>
   );
+
 }
 
 
