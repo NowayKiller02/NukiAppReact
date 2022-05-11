@@ -9,18 +9,19 @@ import raw from '../gitignore.txt';
 
 export default function Login() {
   function getKey() {
+    var value;
     fetch(raw)
       .then(r => r.text())
       .then(text => {
         if (text !== "") {
           console.log('text decoded:', text);
-          const value = text;
-          return value;
+          value = text;
         }
         else {
           console.log('Sorry je bent niet ingelogd');
         }
-      })
+      });
+      return 20;
   }
   return (
     <div>
