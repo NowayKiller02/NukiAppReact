@@ -5,11 +5,6 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import '../App.css';
 import raw from '../gitignore.txt';
-import { getThemeProps } from "@mui/system";
-
-var value;
-
-
 
 
 export default function Login() {
