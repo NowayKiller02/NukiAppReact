@@ -7,22 +7,23 @@ import '../App.css';
 import raw from '../gitignore.txt';
 
 
-export default function Login() {
-  function getKey() {
-    var value;
+function Login() {
+  const [fetchInfo, setFetchInfo] = useState('');
+
+  useEffect(() => {
     fetch(raw)
       .then(r => r.text())
       .then(text => {
         if (text !== "") {
           console.log('text decoded:', text);
-          value = text;
+          setFetchInfo(text);
         }
         else {
           console.log('Sorry je bent niet ingelogd');
         }
       });
-      return 20;
-  }
+  })
+  
   return (
     <div>
       <div className="App">
@@ -31,7 +32,7 @@ export default function Login() {
         </Paper>
         <br></br>
         <br></br>
-        <TextField value={getKey()} type="number" variant="standard" />
+        <TextField value={fetchInfo} type="number" variant="standard" />
         <br></br>
         <br></br>
         <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" > Ok </Button>
@@ -40,5 +41,7 @@ export default function Login() {
   );
 
 }
+
+export default Login;
 
 
