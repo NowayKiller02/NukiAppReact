@@ -6,8 +6,8 @@ import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
 
-const Openurl = "http://nukipi:1880/login";
-const keyurl = "http://nukipi:1880/key";
+const Openurl = "http://10.198.112.30:1880/login";
+const keyurl = "http://10.198.112.30:1880/key";
 
 async function makePost() {
     // Example POST method implementation:
@@ -22,12 +22,15 @@ async function makePost() {
             "Accept": '/',
             "Connection": "keep-alive"
         },
-        body: '"yuran.loones@hotmail.nl"'
+        body: '"test@hotmail.nl"'
     }).catch(err => console.log(err));
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
-var infoww = { "email": "John", "key": "Doe" }
+
+
+
+var infoww = {email:"ruben.salomez@student.vives.be",key:"ThisIsATest"}
 
 // Example POST method implementation:
 async function postData() {
@@ -41,6 +44,7 @@ async function postData() {
         },
         body: JSON.stringify(infoww) // body data type must match "Content-Type" header
     }).catch(err => console.log(err));
+    console.log(infoww);
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
@@ -62,13 +66,13 @@ export default function Login() {
             <br></br>
             <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => {
                 makePost().then(data => {
-                    console.log(data); // JSON data parsed by `data.json()` call
+                    console.log("antwoord van server: " + data); // JSON data parsed by `data.json()` call
                 });
             }} > Send email to Node.Js</Button>
 
             <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => {
                 postData().then(data => {
-                    console.log(data); // JSON data parsed by `data.json()` call
+                    console.log("antwoord van server: " + data); // JSON data parsed by `data.json()` call
                 });
             }} > Ask for true or false</Button>
         </div>

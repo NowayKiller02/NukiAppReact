@@ -31,7 +31,6 @@ function OpenLock() {
     .catch(error => {
       console.error(error)
     });
-
 };
 
 
