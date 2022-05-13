@@ -4,9 +4,6 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import '../App.css';
-//import raw from '../gitignore.txt';
-
-
 
 
 // TODO: maken van code dat de key vanuit de database haalt en deze in de localStorage opslaat...

@@ -8,31 +8,7 @@ import {
   Login,
 } from "./components";
 
-
  var logged = false;
-
-getUser();
-
-
-async function getUser() {
-
-  await fetch(raw)
-    .then(r => r.text())
-    .then(text => {
-      if (text !== "") {
-        console.log('text decoded:', text);
-        logged = true;
-        return logged
-      }
-      else {
-        console.log('Sorry je bent niet ingelogd');
-        logged = false;
-        return logged
-      }
-    });
-    return logged
-}
-
 
 
 export default function App() {
