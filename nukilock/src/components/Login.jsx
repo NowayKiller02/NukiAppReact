@@ -4,26 +4,27 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import '../App.css';
-import raw from '../gitignore.txt';
+//import raw from '../gitignore.txt';
 
+
+
+
+// TODO: maken van code dat de key vanuit de database haalt en deze in de localStorage opslaat...
 
 function Login() {
   const [fetchInfo, setFetchInfo] = useState('');
 
   useEffect(() => {
-    fetch(raw)
-      .then(r => r.text())
-      .then(text => {
-        if (text !== "") {
-          console.log('text decoded:', text);
-          setFetchInfo(text);
-        }
-        else {
-          console.log('Sorry je bent niet ingelogd');
-        }
-      });
+
+    if(localStorage.getItem("nukiKey") === "" || localStorage.getItem("nukiKey") === null){
+      console.log('We kunnen de code niet inladen vanuit vorige ingegeven codes, is dit de eerste keer?');
+    }
+    else{
+      var code = localStorage.getItem("nukiKey");
+      setFetchInfo(code);
+    }
   })
-  
+
   return (
     <div>
       <div className="App">
