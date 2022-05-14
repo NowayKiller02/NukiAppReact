@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+const Swal = require('sweetalert2');
 
 
 const Openurl = "http://10.198.112.30:1880/login";
@@ -30,7 +31,7 @@ async function makePost() {
 
 
 
-var infoww = {email:"ruben.salomez@student.vives.be",key:"ThisIsATest"}
+var infoww = {email:"ruben.saomez@student.vives.be",key:"ThisIsATest"}
 
 // Example POST method implementation:
 async function postData() {

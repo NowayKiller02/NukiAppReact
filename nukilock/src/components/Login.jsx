@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import '../App.css';
+const Swal = require('sweetalert2');
 
 
 // TODO: maken van code dat de key vanuit de database haalt en deze in de localStorage opslaat...
@@ -14,7 +15,11 @@ function Login() {
   useEffect(() => {
 
     if(localStorage.getItem("nukiKey") === "" || localStorage.getItem("nukiKey") === null){
-      console.log('We kunnen de code niet inladen vanuit vorige ingegeven codes, is dit de eerste keer?');
+      Swal.fire(
+        'Info:',
+        'Login will be safed on device after first login.',
+        'question'
+      )
     }
     else{
       var code = localStorage.getItem("nukiKey");
