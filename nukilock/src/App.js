@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import raw from './gitignore.txt';
 import {
   Home,
   Actions,

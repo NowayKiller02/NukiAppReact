@@ -28,9 +28,6 @@ async function makePost() {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
-
-
-
 var infoww = {email:"ruben.saomez@student.vives.be",key:"ThisIsATest"}
 
 // Example POST method implementation:
@@ -53,7 +50,6 @@ async function postData() {
 
 export default function Login() {
     const navigate = useNavigate()
-
     return (
         <div className="App">
             <Paper square>
