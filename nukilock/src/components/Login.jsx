@@ -5,9 +5,15 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+import '../config';
 
 
 // TODO: maken van code dat de key vanuit de database haalt en deze in de localStorage opslaat...
+
+function Submit(){
+  console.log(global.config.LoggedIn.bool.en);
+  global.config.LoggedIn.bool.en = true;
+}
 
 function saveEmail(email){
   localStorage.setItem("email", email);
@@ -55,7 +61,7 @@ function Login() {
         <TextField required value={codeInfo} onChange={(e) => setcodeInfo(e.target.value)} type="password" label="Password" variant="standard" />
         <br></br>
         <br></br>
-        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" > Ok </Button>
+        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={Submit} > Ok </Button>
       </div>
     </div>
   );

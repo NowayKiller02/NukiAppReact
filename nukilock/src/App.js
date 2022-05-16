@@ -7,7 +7,8 @@ import {
   Login,
 } from "./components";
 
- var logged = false;
+
+var logged = false;
 
 
 export default function App() {
