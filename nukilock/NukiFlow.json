@@ -1,0 +1,383 @@
+[
+    {
+        "id": "af408c4f2371b81b",
+        "type": "tab",
+        "label": "Flow NUKI",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3f1fb2afce29bdfa",
+        "type": "http in",
+        "z": "af408c4f2371b81b",
+        "name": "App posts user email",
+        "url": "/login",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "4905cbfb818718b5",
+                "62fb84b703766814",
+                "46359b8490748944"
+            ]
+        ]
+    },
+    {
+        "id": "4905cbfb818718b5",
+        "type": "function",
+        "z": "af408c4f2371b81b",
+        "name": "Set user email to global var",
+        "func": "global.set(\"email\", msg.payload);\n\nvar userEmail = global.get(\"email\");\n\nmsg.topic = \"SELECT userkey FROM users WHERE email = \" + userEmail + \";\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 120,
+        "wires": [
+            [
+                "e0775d7854741425",
+                "dcd9a646a722d18c"
+            ]
+        ]
+    },
+    {
+        "id": "62fb84b703766814",
+        "type": "debug",
+        "z": "af408c4f2371b81b",
+        "name": "User Email",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "46359b8490748944",
+        "type": "http response",
+        "z": "af408c4f2371b81b",
+        "name": "Respond status to login",
+        "statusCode": "",
+        "headers": {},
+        "x": 430,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "dcd9a646a722d18c",
+        "type": "debug",
+        "z": "af408c4f2371b81b",
+        "name": "Query",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "4de7b27492f956f0",
+        "type": "function",
+        "z": "af408c4f2371b81b",
+        "name": "Set Key to global var",
+        "func": "global.set(\"key1\", msg.payload);\n\nvar userKey1 = global.get(\"key1\");\n\nif(userKey1 == \"\")\n{\n    msg.payload = \"There is no key available for user \" + global.get(\"email\");\n}\n\nelse\n{\n    msg.payload = \"Hi there! Your key to use the Nuki is: \" + JSON.stringify(userKey1[0].userkey);\n    msg.to = global.get(\"email\");\n    msg.topic = \"Nuki key\";\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 120,
+        "wires": [
+            [
+                "f0b564ca67751ba1",
+                "55274e3020bc7aa2"
+            ]
+        ]
+    },
+    {
+        "id": "7d9d4546af4120d7",
+        "type": "debug",
+        "z": "af408c4f2371b81b",
+        "name": "Key Value",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "f0b564ca67751ba1",
+        "type": "debug",
+        "z": "af408c4f2371b81b",
+        "name": "Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1170,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "aec57be86501d9f7",
+        "type": "http in",
+        "z": "af408c4f2371b81b",
+        "name": "App posts email + key",
+        "url": "/key",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 340,
+        "wires": [
+            [
+                "4f10f625111a0bbe",
+                "cd80b0f4ecb28c49",
+                "9a312ca071f22896"
+            ]
+        ]
+    },
+    {
+        "id": "4f10f625111a0bbe",
+        "type": "function",
+        "z": "af408c4f2371b81b",
+        "name": "Set Key as global var",
+        "func": "global.set(\"key2\", msg.payload.key);\nglobal.set(\"email2\", msg.payload.email);\nvar message2 = { payload: \"\",topic:\"\"};\n\nvar userKey2 = global.get(\"key2\");\n\nmessage2.topic =  \"SELECT * FROM users WHERE userkey = \\\"\" + userKey2 + \"\\\" ;\";\n\nreturn message2;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 340,
+        "wires": [
+            [
+                "2814b5666bdbbbe6",
+                "6e6a5926863c58a3"
+            ]
+        ]
+    },
+    {
+        "id": "cd80b0f4ecb28c49",
+        "type": "debug",
+        "z": "af408c4f2371b81b",
+        "name": "User Key",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6e6a5926863c58a3",
+        "type": "debug",
+        "z": "af408c4f2371b81b",
+        "name": "Query",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "cd011a80087d1bfd",
+        "type": "http response",
+        "z": "af408c4f2371b81b",
+        "name": "Respond status to key",
+        "statusCode": "",
+        "headers": {},
+        "x": 760,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "98a0a64d8dd722a8",
+        "type": "function",
+        "z": "af408c4f2371b81b",
+        "name": "To Grant Permissions Or Not",
+        "func": "var message = {topic:\"\"};\nif ( msg.payload[0].email == global.get(\"email2\"))\n{\n    message.payload = \"true\";\n    global.set(\"permission\", message.payload);\n}\n\nelse\n{\n    message.payload = \"false\";\n    global.set(\"permission\", message.payload);\n}\n\nreturn message;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 340,
+        "wires": [
+            [
+                "85d198474d022d8b"
+            ]
+        ]
+    },
+    {
+        "id": "85d198474d022d8b",
+        "type": "debug",
+        "z": "af408c4f2371b81b",
+        "name": "Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "1649044d6d3f62cc",
+        "type": "function",
+        "z": "af408c4f2371b81b",
+        "name": "Set permission",
+        "func": "msg.payload = global.get(\"permission\");\nglobal.set(\"permission\", \"false\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 420,
+        "wires": [
+            [
+                "cd011a80087d1bfd"
+            ]
+        ]
+    },
+    {
+        "id": "e0775d7854741425",
+        "type": "mysql",
+        "z": "af408c4f2371b81b",
+        "mydb": "97f6da09d164d58c",
+        "name": "User Database",
+        "x": 720,
+        "y": 120,
+        "wires": [
+            [
+                "4de7b27492f956f0",
+                "7d9d4546af4120d7"
+            ]
+        ]
+    },
+    {
+        "id": "2814b5666bdbbbe6",
+        "type": "mysql",
+        "z": "af408c4f2371b81b",
+        "mydb": "97f6da09d164d58c",
+        "name": "User Database",
+        "x": 600,
+        "y": 340,
+        "wires": [
+            [
+                "98a0a64d8dd722a8",
+                "557125ef9bcefb40"
+            ]
+        ]
+    },
+    {
+        "id": "55274e3020bc7aa2",
+        "type": "e-mail",
+        "z": "af408c4f2371b81b",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "",
+        "dname": "Send Key to User",
+        "x": 1210,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "557125ef9bcefb40",
+        "type": "debug",
+        "z": "af408c4f2371b81b",
+        "name": "Result Database",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "9a312ca071f22896",
+        "type": "delay",
+        "z": "af408c4f2371b81b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 300,
+        "y": 420,
+        "wires": [
+            [
+                "1649044d6d3f62cc"
+            ]
+        ]
+    },
+    {
+        "id": "97f6da09d164d58c",
+        "type": "MySQLdatabase",
+        "name": "users database",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "nukidb",
+        "tz": "",
+        "charset": "UTF8"
+    }
+]
