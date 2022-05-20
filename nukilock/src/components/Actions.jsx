@@ -10,6 +10,7 @@ const Swal = require('sweetalert2');
 const token = "bdeb6ae900e63ad6e8c13afa19fa2ce4b053838c7d1efd91cddc209b95b6acec74740b2c3602946e";
 
 const Openurl = "https://api.nuki.io/smartlock/645574324/action/unlock";
+const logUrl = "http://10.198.112.19:1880/log";
 const Closeurl = "https://api.nuki.io/smartlock/645574324/action/lock";
 
 //TODO: maken van functie dat controleert of die code ( localstorgage) wel klopt met de code van in de database
@@ -38,7 +39,7 @@ function OpenLock() {
   else {
     Swal.fire({
       position: 'top-end',
-      icon: 'error',
+      icon: 'warning',
       title: 'You\'re not logged in',
       showConfirmButton: false,
       timer: 1000
@@ -68,7 +69,7 @@ function CloseLock() {
   else {
     Swal.fire({
       position: 'top-end',
-      icon: 'error',
+      icon: 'warning',
       title: 'You\'re not logged in',
       showConfirmButton: false,
       timer: 1000
@@ -76,6 +77,24 @@ function CloseLock() {
   }
 
 };
+
+function logThings(){
+    // Example POST method implementation:
+    // Default options are marked with *
+    const response = await fetch(Openurl, {
+      method: 'POST',
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'text/plain',
+        "Accept": '/',
+        "Connection": "keep-alive"
+      },
+      body: '"' + email + '"'
+    }).catch(err => console.log(err));
+    return response.json(); // parses JSON response into native JavaScript objects
+}
 
 
 function Login() {

@@ -21,7 +21,8 @@ export default function Login() {
             <p>Developped by: </p>
             <p>Yuran Loones, Liem Nuygens and Ruben Salomez</p>
             <br></br>
-            <p>Remember to close the door after you leave, the interactions are monitored</p>
+            <p>Remember to close the door after you leave </p>
+            <p> the interactions are monitored</p>
         </div>
     );
 }
