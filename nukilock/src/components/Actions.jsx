@@ -2,6 +2,7 @@ import * as React from 'react';
 import logo from '../NukiLogo.png';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 const Swal = require('sweetalert2');
 
@@ -77,10 +78,11 @@ function CloseLock() {
 };
 
 
-function login() {
+function Login() {
+  const navigate = useNavigate()
   return (
     <div className="App">
-      <Paper square>
+      <Paper onClick={() => navigate("/")} square>
         <img src={logo} alt='logo' />
       </Paper>
       <br></br>
@@ -90,6 +92,6 @@ function login() {
     </div>
   );
 }
-export default login;
+export default Login;
 
 

@@ -14,10 +14,21 @@ const Openurl = "http://10.198.112.19:1880/login";
 const keyurl = "http://10.198.112.19:1880/key";
 
 
-
-
-function Submit() {
-  console.log("nog geen functie");
+// Example POST method implementation:
+async function postData(user,code) {
+  var infoww = {email:user,key:code}
+    // Default options are marked with *
+    const response = await fetch(keyurl, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            'Content-Type': 'application/json',
+            "Accept": '/',
+            "Connection": "keep-alive"
+        },
+        body: JSON.stringify(infoww) // body data type must match "Content-Type" header
+    }).catch(err => console.log(err));
+    console.log(infoww);
+    return response.json(); // parses JSON response into native JavaScript objects
 }
 
 function saveEmail(email) {
@@ -43,7 +54,7 @@ async function makePost(email) {
     },
     body: '"' + email + '"'
   }).catch(err => console.log(err));
-  console.log(response.json())
+  return response.json(); // parses JSON response into native JavaScript objects
 }
 
 function Login() {
@@ -83,10 +94,28 @@ function Login() {
         <TextField required value={codeInfo} onChange={(e) => setcodeInfo(e.target.value)} type="password" label="Password" variant="standard" />
         <br></br>
         <br></br>
-        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={Submit} > Login </Button>
+        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => postData(emailInfo, codeInfo).then(data => {
+          console.log(data);
+          if (data) {
+            console.log("de var: ", global.config.LoggedIn.bool.en);
+            global.config.LoggedIn.bool.en = true;
+            console.log("de var: ", global.config.LoggedIn.bool.en);
+            saveEmail(emailInfo);
+            saveCode(codeInfo);
+          }
+          else {
+            global.config.LoggedIn.bool.en = false;
+            console.log("de var: ", global.config.LoggedIn.bool.en);
+          }
+        })} > Login </Button>
         <br></br>
         <br></br>
-        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => makePost(emailInfo)} > Request code </Button>
+        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => navigate("/actions")} > Go to the controls</Button>
+        <br></br>
+        <br></br>
+        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => makePost(emailInfo).then(data => {
+          console.log("antwoord van server: " + data); // JSON data parsed by `data.json()` call
+        })} > Request code </Button>
       </div>
     </div>
   );
