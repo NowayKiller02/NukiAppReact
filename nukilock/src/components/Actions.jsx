@@ -77,7 +77,6 @@ function CloseLock(email) {
       timer: 1000
     })
   }
-
 };
 
 async function logThings(user, action) {
@@ -102,7 +101,7 @@ function Login() {
   const navigate = useNavigate()
   return (
     <div className="App">
-      <Paper onClick={() => navigate("/")} square>
+      <Paper onClick={() => navigate("/login")} square>
         <img src={logo} alt='logo' />
       </Paper>
       <br></br>
