@@ -19,7 +19,8 @@ const Closeurl = "https://api.nuki.io/smartlock/645574324/action/lock";
 // Ik zou het alle2 doen voor de veiligheid
 
 
-function OpenLock() {
+function OpenLock(email) {
+  logThings(email, 1);
   if (global.config.LoggedIn.bool.en) {
     console.log("Opening Lock");
     fetch(Openurl, {
@@ -48,7 +49,8 @@ function OpenLock() {
 };
 
 
-function CloseLock() {
+function CloseLock(email) {
+  logThings(email, 0);
   console.log("Logged In: ", global.config.LoggedIn.bool.en)
   if (global.config.LoggedIn.bool.en) {
     console.log("Closing Lock");
@@ -78,23 +80,22 @@ function CloseLock() {
 
 };
 
-function logThings(){
-    // Example POST method implementation:
-    // Default options are marked with *
-    const response = await fetch(Openurl, {
-      method: 'POST',
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'text/plain',
-        "Accept": '/',
-        "Connection": "keep-alive"
-      },
-      body: '"' + email + '"'
-    }).catch(err => console.log(err));
-    return response.json(); // parses JSON response into native JavaScript objects
+async function logThings(user, action) {
+  var jsonString = { "email": user, "open_or_close": action }
+  // Example POST method implementation:
+  // Default options are marked with *
+  const response = fetch(logUrl, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Content-Type': 'application/json',
+      "Accept": '/',
+      "Connection": "keep-alive"
+    },
+    body: JSON.stringify(jsonString)
+  }).catch(err => console.log(err));
+  console.log(jsonString);
 }
+
 
 
 function Login() {
@@ -106,8 +107,8 @@ function Login() {
       </Paper>
       <br></br>
       <br></br>
-      <Button onClick={CloseLock} style={{ height: '75px', width: '45%' }} variant="outlined" color="success">Lock</Button>
-      <Button onClick={OpenLock} style={{ height: '75px', width: '45%' }} variant="outlined" color="error">Unlock</Button>
+      <Button onClick={() => CloseLock(localStorage.getItem("email"))} style={{ height: '75px', width: '45%' }} variant="outlined" color="success">Lock</Button>
+      <Button onClick={() => OpenLock(localStorage.getItem("email"))} style={{ height: '75px', width: '45%' }} variant="outlined" color="error">Unlock</Button>
     </div>
   );
 }
