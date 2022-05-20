@@ -10,17 +10,40 @@ import '../config';
 
 // TODO: maken van code dat de key vanuit de database haalt en deze in de localStorage opslaat...
 
-function Submit(){
-  console.log(global.config.LoggedIn.bool.en);
-  global.config.LoggedIn.bool.en = true;
+const Openurl = "http://10.198.112.19:1880/login";
+const keyurl = "http://10.198.112.19:1880/key";
+
+
+
+
+function Submit() {
+  console.log("nog geen functie");
 }
 
-function saveEmail(email){
+function saveEmail(email) {
   localStorage.setItem("email", email);
 }
 
-function saveCode(code){
+function saveCode(code) {
   localStorage.setItem("nukiKey", code);
+}
+
+async function makePost(email) {
+  // Example POST method implementation:
+  // Default options are marked with *
+  const response = await fetch(Openurl, {
+    method: 'POST',
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'text/plain',
+      "Accept": '/',
+      "Connection": "keep-alive"
+    },
+    body: '"' + email + '"'
+  }).catch(err => console.log(err));
+  console.log(response.json())
 }
 
 function Login() {
@@ -37,7 +60,6 @@ function Login() {
         var code = localStorage.getItem("nukiKey");
         setcodeInfo(code);
       }
-
       if (localStorage.getItem("email") === "" || localStorage.getItem("email") === null) {
         console.log("email not found");
       }
@@ -61,7 +83,10 @@ function Login() {
         <TextField required value={codeInfo} onChange={(e) => setcodeInfo(e.target.value)} type="password" label="Password" variant="standard" />
         <br></br>
         <br></br>
-        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={Submit} > Ok </Button>
+        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={Submit} > Login </Button>
+        <br></br>
+        <br></br>
+        <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => makePost(emailInfo)} > Request code </Button>
       </div>
     </div>
   );

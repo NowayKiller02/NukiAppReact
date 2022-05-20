@@ -4,11 +4,11 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
-const Swal = require('sweetalert2');
+import '../config';
 
 
-const Openurl = "http://10.198.112.30:1880/login";
-const keyurl = "http://10.198.112.30:1880/key";
+const Openurl = "http://10.198.112.19:1880/login";
+const keyurl = "http://10.198.112.19:1880/key";
 
 async function makePost() {
     // Example POST method implementation:
@@ -23,12 +23,12 @@ async function makePost() {
             "Accept": '/',
             "Connection": "keep-alive"
         },
-        body: '"test@hotmail.nl"'
+        body: '"yuran.loones@student.vives.be"'
     }).catch(err => console.log(err));
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
-var infoww = {email:"ruben.saomez@student.vives.be",key:"ThisIsATest"}
+var infoww = {email:"yuran.loones@student.vives.be",key:"aLQuQLzvg4fgwff3I3oVshORdXoN8ZOR"}
 
 // Example POST method implementation:
 async function postData() {
@@ -69,7 +69,17 @@ export default function Login() {
 
             <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => {
                 postData().then(data => {
-                    console.log("antwoord van server: " + data); // JSON data parsed by `data.json()` call
+                    console.log(data);
+                    if(data){
+                        console.log("de var: ", global.config.LoggedIn.bool.en);
+                        global.config.LoggedIn.bool.en = true;
+                        console.log("de var: ", global.config.LoggedIn.bool.en);
+                    }
+                    else{
+                        global.config.LoggedIn.bool.en = false;
+                        console.log("de var: ", global.config.LoggedIn.bool.en);
+                    }
+
                 });
             }} > Ask for true or false</Button>
         </div>

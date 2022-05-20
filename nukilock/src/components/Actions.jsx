@@ -3,6 +3,7 @@ import logo from '../NukiLogo.png';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import '../App.css';
+const Swal = require('sweetalert2');
 
 
 const token = "bdeb6ae900e63ad6e8c13afa19fa2ce4b053838c7d1efd91cddc209b95b6acec74740b2c3602946e";
@@ -17,53 +18,76 @@ const Closeurl = "https://api.nuki.io/smartlock/645574324/action/lock";
 
 
 function OpenLock() {
-  console.log("Opening Lock");
-  fetch(Openurl, {
-    method: 'post',
-    headers: new Headers({
-      'Authorization': `Bearer ${token}`,
-      // 'Content-Type': 'application/x-www-form-urlencoded'
+  if (global.config.LoggedIn.bool.en) {
+    console.log("Opening Lock");
+    fetch(Openurl, {
+      method: 'post',
+      headers: new Headers({
+        'Authorization': `Bearer ${token}`,
+        // 'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    }).then(res => {
+      console.log(`statusCode: ${res.status}`)
+      console.log(res)
     })
-  }).then(res => {
-    console.log(`statusCode: ${res.status}`)
-    console.log(res)
-  })
-    .catch(error => {
-      console.error(error)
-    });
+      .catch(error => {
+        console.error(error)
+      });
+  }
+  else {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'You\'re not logged in',
+      showConfirmButton: false,
+      timer: 1000
+    })
+  }
 };
 
 
 function CloseLock() {
-  console.log("Closing Lock");
-  fetch(Closeurl, {
-    method: 'post',
-    headers: new Headers({
-      'Authorization': `Bearer ${token}`,
-      // 'Content-Type': 'application/x-www-form-urlencoded'
-    }),
-  }).then(res => {
-    console.log(`statusCode: ${res.status}`)
-    console.log(res)
-  })
-    .catch(error => {
-      console.error(error)
-    });
+  console.log("Logged In: ", global.config.LoggedIn.bool.en)
+  if (global.config.LoggedIn.bool.en) {
+    console.log("Closing Lock");
+    fetch(Closeurl, {
+      method: 'post',
+      headers: new Headers({
+        'Authorization': `Bearer ${token}`,
+        // 'Content-Type': 'application/x-www-form-urlencoded'
+      }),
+    }).then(res => {
+      console.log(`statusCode: ${res.status}`)
+      console.log(res)
+    })
+      .catch(error => {
+        console.error(error)
+      });
+  }
+  else {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'You\'re not logged in',
+      showConfirmButton: false,
+      timer: 1000
+    })
+  }
 
 };
 
 
 function login() {
   return (
-      <div className="App">
-        <Paper square>
-          <img src={logo} alt='logo' />
-        </Paper>
-        <br></br>
-        <br></br>
-        <Button onClick={CloseLock} style={{ height: '75px', width: '45%' }} variant="outlined" color="success">Lock</Button>
-        <Button onClick={OpenLock} style={{ height: '75px', width: '45%' }} variant="outlined" color="error">Unlock</Button>
-      </div>
+    <div className="App">
+      <Paper square>
+        <img src={logo} alt='logo' />
+      </Paper>
+      <br></br>
+      <br></br>
+      <Button onClick={CloseLock} style={{ height: '75px', width: '45%' }} variant="outlined" color="success">Lock</Button>
+      <Button onClick={OpenLock} style={{ height: '75px', width: '45%' }} variant="outlined" color="error">Unlock</Button>
+    </div>
   );
 }
 export default login;
