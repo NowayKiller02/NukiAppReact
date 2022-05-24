@@ -20,8 +20,8 @@ const Closeurl = "https://api.nuki.io/smartlock/645574324/action/lock";
 
 
 function OpenLock(email) {
-  logThings(email, 1);
   if (global.config.LoggedIn.bool.en) {
+    logThings(email, 1);
     console.log("Opening Lock");
     fetch(Openurl, {
       method: 'post',
@@ -50,8 +50,8 @@ function OpenLock(email) {
 
 
 function CloseLock(email) {
-  logThings(email, 0);
   console.log("Logged In: ", global.config.LoggedIn.bool.en)
+  logThings(email, 0);
   if (global.config.LoggedIn.bool.en) {
     console.log("Closing Lock");
     fetch(Closeurl, {

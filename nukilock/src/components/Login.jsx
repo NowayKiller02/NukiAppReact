@@ -35,7 +35,6 @@ async function postData(user, code) {
 function saveEmail(email) {
   localStorage.setItem("email", email);
 }
-
 function saveCode(code) {
   localStorage.setItem("nukiKey", code);
 }
@@ -136,7 +135,7 @@ function Login() {
             global.config.LoggedIn.bool.en = false;
             console.log("de var: ", global.config.LoggedIn.bool.en);
           }
-        })} > Login </Button>
+        }).catch(err => console.log(err))} > Login </Button>
         <br></br>
         <br></br>
         <Button style={{ height: '75px', width: '45%' }} variant="outlined" color="success" onClick={() => navigate("/actions")} > Go to the controls</Button>
