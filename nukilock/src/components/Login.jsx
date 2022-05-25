@@ -11,8 +11,8 @@ const Swal = require('sweetalert2');
 
 // TODO: maken van code dat de key vanuit de database haalt en deze in de localStorage opslaat...
 
-const loginUrl = "http://10.198.112.19:1880/login";
-const keyurl = "http://10.198.112.19:1880/key";
+const loginUrl = "http://nukipi.local:1880/login";
+const keyurl = "http://nukipi.local:1880/key";
 
 
 // Example POST method implementation:

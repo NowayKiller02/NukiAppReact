@@ -10,7 +10,7 @@ const Swal = require('sweetalert2');
 const token = "bdeb6ae900e63ad6e8c13afa19fa2ce4b053838c7d1efd91cddc209b95b6acec74740b2c3602946e";
 
 const Openurl = "https://api.nuki.io/smartlock/645574324/action/unlock";
-const logUrl = "http://10.198.112.19:1880/log";
+const logUrl = "http://nukipi.local:1880/log";
 const Closeurl = "https://api.nuki.io/smartlock/645574324/action/lock";
 
 //TODO: maken van functie dat controleert of die code ( localstorgage) wel klopt met de code van in de database
