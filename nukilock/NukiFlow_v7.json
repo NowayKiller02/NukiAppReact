@@ -1,6 +1,6 @@
 [
     {
-        "id": "af408c4f2371b81b",
+        "id": "44686ed61e1d9d3b",
         "type": "tab",
         "label": "Flow NUKI",
         "disabled": false,
@@ -8,9 +8,9 @@
         "env": []
     },
     {
-        "id": "3f1fb2afce29bdfa",
+        "id": "e1a546d3f1caf427",
         "type": "http in",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "App posts user email",
         "url": "/login",
         "method": "post",
@@ -20,16 +20,16 @@
         "y": 120,
         "wires": [
             [
-                "4905cbfb818718b5",
-                "62fb84b703766814",
-                "46359b8490748944"
+                "657ba2faa43d7b25",
+                "9f8701fab26c5955",
+                "d30420f3674ec75a"
             ]
         ]
     },
     {
-        "id": "4905cbfb818718b5",
+        "id": "657ba2faa43d7b25",
         "type": "function",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Set user email to global var",
         "func": "global.set(\"email\", msg.payload);\n\nvar userEmail = global.get(\"email\");\n\nmsg.topic = \"SELECT userkey FROM users WHERE email = \" + userEmail + \";\";\n\nreturn msg;",
         "outputs": 1,
@@ -41,15 +41,15 @@
         "y": 120,
         "wires": [
             [
-                "e0775d7854741425",
-                "dcd9a646a722d18c"
+                "f35b6a0feba192f1",
+                "0256eff2a9f34bb5"
             ]
         ]
     },
     {
-        "id": "62fb84b703766814",
+        "id": "9f8701fab26c5955",
         "type": "debug",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "User Email",
         "active": true,
         "tosidebar": true,
@@ -64,20 +64,20 @@
         "wires": []
     },
     {
-        "id": "46359b8490748944",
+        "id": "277032c29946fa3a",
         "type": "http response",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Respond status to login",
         "statusCode": "",
         "headers": {},
-        "x": 430,
-        "y": 160,
+        "x": 990,
+        "y": 200,
         "wires": []
     },
     {
-        "id": "dcd9a646a722d18c",
+        "id": "0256eff2a9f34bb5",
         "type": "debug",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Query",
         "active": true,
         "tosidebar": true,
@@ -92,11 +92,11 @@
         "wires": []
     },
     {
-        "id": "4de7b27492f956f0",
+        "id": "dc71e7d3ae0de32e",
         "type": "function",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Set Key to global var",
-        "func": "global.set(\"key1\", msg.payload);\n\nvar userKey1 = global.get(\"key1\");\n\nif(userKey1 == \"\")\n{\n    msg.payload = \"There is no key available for user \" + global.get(\"email\");\n}\n\nelse\n{\n    msg.payload = \"Hi there! Your key to use the Nuki is: \" + JSON.stringify(userKey1[0].userkey);\n    msg.to = global.get(\"email\");\n    msg.topic = \"Nuki key\";\n    return msg;\n}\n",
+        "func": "global.set(\"key1\", msg.payload);\n\nvar userKey1 = global.get(\"key1\");\n\nif(userKey1 == \"\")\n{\n    msg.payload = \"There is no key available for user \" + global.get(\"email\");\n    msg.to = global.get(\"email\");\n    msg.topic = \"Nuki key\";\n    return msg;\n}\n\nelse\n{\n    msg.payload = \"Hi there! Your key to use the Nuki is: \" + JSON.stringify(userKey1[0].userkey);\n    msg.to = global.get(\"email\");\n    msg.topic = \"Nuki key\";\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -106,15 +106,15 @@
         "y": 120,
         "wires": [
             [
-                "f0b564ca67751ba1",
-                "55274e3020bc7aa2"
+                "aa9c2cc67eef69a7",
+                "338094dbfa735260"
             ]
         ]
     },
     {
-        "id": "7d9d4546af4120d7",
+        "id": "65be76212f2906c0",
         "type": "debug",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Key Value",
         "active": true,
         "tosidebar": true,
@@ -129,9 +129,9 @@
         "wires": []
     },
     {
-        "id": "f0b564ca67751ba1",
+        "id": "aa9c2cc67eef69a7",
         "type": "debug",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Result",
         "active": true,
         "tosidebar": true,
@@ -146,9 +146,9 @@
         "wires": []
     },
     {
-        "id": "aec57be86501d9f7",
+        "id": "1ad3f54e22f059c4",
         "type": "http in",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "App posts email + key",
         "url": "/key",
         "method": "post",
@@ -158,16 +158,16 @@
         "y": 340,
         "wires": [
             [
-                "4f10f625111a0bbe",
-                "cd80b0f4ecb28c49",
-                "9a312ca071f22896"
+                "5cb9eb4c30e6fde3",
+                "dc1ac1e5673197c5",
+                "2d69fbcb4eb3abad"
             ]
         ]
     },
     {
-        "id": "4f10f625111a0bbe",
+        "id": "5cb9eb4c30e6fde3",
         "type": "function",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Set Key as global var",
         "func": "global.set(\"key2\", msg.payload.key);\nglobal.set(\"email2\", msg.payload.email);\nvar message2 = { payload: \"\",topic:\"\"};\n\nvar userKey2 = global.get(\"key2\");\n\nmessage2.topic =  \"SELECT * FROM users WHERE userkey = \\\"\" + userKey2 + \"\\\" ;\";\n\nreturn message2;",
         "outputs": 1,
@@ -179,15 +179,15 @@
         "y": 340,
         "wires": [
             [
-                "2814b5666bdbbbe6",
-                "6e6a5926863c58a3"
+                "76e350f53fc11c4f",
+                "b0cddc8a381a4d45"
             ]
         ]
     },
     {
-        "id": "cd80b0f4ecb28c49",
+        "id": "dc1ac1e5673197c5",
         "type": "debug",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "User Key",
         "active": true,
         "tosidebar": true,
@@ -202,9 +202,9 @@
         "wires": []
     },
     {
-        "id": "6e6a5926863c58a3",
+        "id": "b0cddc8a381a4d45",
         "type": "debug",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Query",
         "active": true,
         "tosidebar": true,
@@ -219,9 +219,9 @@
         "wires": []
     },
     {
-        "id": "cd011a80087d1bfd",
+        "id": "434a8a7d39ae50b6",
         "type": "http response",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Respond status to key",
         "statusCode": "",
         "headers": {},
@@ -230,9 +230,9 @@
         "wires": []
     },
     {
-        "id": "98a0a64d8dd722a8",
+        "id": "5266b2ad49dc134c",
         "type": "function",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "To Grant Permissions Or Not",
         "func": "var message = {topic:\"\"};\nif ( msg.payload[0].email == global.get(\"email2\"))\n{\n    message.payload = \"true\";\n    global.set(\"permission\", message.payload);\n}\n\nelse\n{\n    message.payload = \"false\";\n    global.set(\"permission\", message.payload);\n}\n\nreturn message;",
         "outputs": 1,
@@ -244,14 +244,14 @@
         "y": 340,
         "wires": [
             [
-                "85d198474d022d8b"
+                "d4967b2a5d170fa2"
             ]
         ]
     },
     {
-        "id": "85d198474d022d8b",
+        "id": "d4967b2a5d170fa2",
         "type": "debug",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Result",
         "active": true,
         "tosidebar": true,
@@ -266,9 +266,9 @@
         "wires": []
     },
     {
-        "id": "1649044d6d3f62cc",
+        "id": "9ed257fbf4643ef6",
         "type": "function",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Set permission",
         "func": "msg.payload = global.get(\"permission\");\nglobal.set(\"permission\", \"false\");\n\nreturn msg;",
         "outputs": 1,
@@ -280,44 +280,44 @@
         "y": 420,
         "wires": [
             [
-                "cd011a80087d1bfd"
+                "434a8a7d39ae50b6"
             ]
         ]
     },
     {
-        "id": "e0775d7854741425",
+        "id": "f35b6a0feba192f1",
         "type": "mysql",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "mydb": "97f6da09d164d58c",
         "name": "User Database",
         "x": 720,
         "y": 120,
         "wires": [
             [
-                "4de7b27492f956f0",
-                "7d9d4546af4120d7"
+                "dc71e7d3ae0de32e",
+                "65be76212f2906c0"
             ]
         ]
     },
     {
-        "id": "2814b5666bdbbbe6",
+        "id": "76e350f53fc11c4f",
         "type": "mysql",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "mydb": "97f6da09d164d58c",
         "name": "User Database",
         "x": 600,
         "y": 340,
         "wires": [
             [
-                "98a0a64d8dd722a8",
-                "557125ef9bcefb40"
+                "5266b2ad49dc134c",
+                "e56fe29f50fb5176"
             ]
         ]
     },
     {
-        "id": "55274e3020bc7aa2",
+        "id": "338094dbfa735260",
         "type": "e-mail",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "server": "smtp.gmail.com",
         "port": "465",
         "secure": true,
@@ -329,9 +329,9 @@
         "wires": []
     },
     {
-        "id": "557125ef9bcefb40",
+        "id": "e56fe29f50fb5176",
         "type": "debug",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "Result Database",
         "active": true,
         "tosidebar": true,
@@ -346,9 +346,9 @@
         "wires": []
     },
     {
-        "id": "9a312ca071f22896",
+        "id": "2d69fbcb4eb3abad",
         "type": "delay",
-        "z": "af408c4f2371b81b",
+        "z": "44686ed61e1d9d3b",
         "name": "",
         "pauseType": "delay",
         "timeout": "1",
@@ -366,9 +366,168 @@
         "y": 420,
         "wires": [
             [
-                "1649044d6d3f62cc"
+                "9ed257fbf4643ef6"
             ]
         ]
+    },
+    {
+        "id": "d30420f3674ec75a",
+        "type": "delay",
+        "z": "44686ed61e1d9d3b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "276d6dadbf6cb044"
+            ]
+        ]
+    },
+    {
+        "id": "276d6dadbf6cb044",
+        "type": "function",
+        "z": "44686ed61e1d9d3b",
+        "name": "Set respons for yuran",
+        "func": "var userKey2 = global.get(\"key1\");\n\nif(userKey2 == \"\")\n{\n    msg.payload = \"false\";\n    return msg;\n}\n\nelse\n{\n    msg.payload = \"true\";\n    return msg;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 200,
+        "wires": [
+            [
+                "277032c29946fa3a"
+            ]
+        ]
+    },
+    {
+        "id": "a9c52a1c437fce2e",
+        "type": "http in",
+        "z": "44686ed61e1d9d3b",
+        "name": "Log event",
+        "url": "/log",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 60,
+        "y": 540,
+        "wires": [
+            [
+                "b577988518145d1a",
+                "8f683e10cd41d40d",
+                "e109acee9defe5c9"
+            ]
+        ]
+    },
+    {
+        "id": "b577988518145d1a",
+        "type": "function",
+        "z": "44686ed61e1d9d3b",
+        "name": "Insert event into database",
+        "func": "global.set(\"email3\", msg.payload.email);\nglobal.set(\"open_or_close\", msg.payload.open_or_close);\nvar email3 = global.get(\"email3\");\nvar status = global.get(\"open_or_close\");\nvar message3 = { payload: \"\",topic:\"\"};\nconsole.log(email3);\nconsole.log(status);\nmessage3.topic =  \"INSERT INTO log (time, user, open_or_closed) values (now(),\\\"\" + global.get(\"email3\") + \"\\\",\" + global.get(\"open_or_close\") + \");\";\n\nreturn message3;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 540,
+        "wires": [
+            [
+                "c8db363bbe9d624f",
+                "96b75f2f16943e5e"
+            ]
+        ]
+    },
+    {
+        "id": "c8db363bbe9d624f",
+        "type": "mysql",
+        "z": "44686ed61e1d9d3b",
+        "mydb": "97f6da09d164d58c",
+        "name": "User Database",
+        "x": 600,
+        "y": 540,
+        "wires": [
+            [
+                "abd07e00650426ea"
+            ]
+        ]
+    },
+    {
+        "id": "abd07e00650426ea",
+        "type": "debug",
+        "z": "44686ed61e1d9d3b",
+        "name": "Event Logged",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "8f683e10cd41d40d",
+        "type": "http response",
+        "z": "44686ed61e1d9d3b",
+        "name": "Respond to Log",
+        "statusCode": "",
+        "headers": {},
+        "x": 280,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "e109acee9defe5c9",
+        "type": "debug",
+        "z": "44686ed61e1d9d3b",
+        "name": "Log Event",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 260,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "96b75f2f16943e5e",
+        "type": "debug",
+        "z": "44686ed61e1d9d3b",
+        "name": "Result Query",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 500,
+        "wires": []
     },
     {
         "id": "97f6da09d164d58c",
